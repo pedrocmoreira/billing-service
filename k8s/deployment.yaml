@@ -21,7 +21,7 @@ spec:
       containers:
         - name: billing-service
           # A pipeline de CI/CD substitui a imagem com "kubectl set image" (tag = SHA do commit)
-          image: ghcr.io/OWNER/billing-service:latest
+          image: ghcr.io/pedrocmoreira/billing-service:latest
           imagePullPolicy: IfNotPresent
           ports: [{containerPort: 8082}]
           envFrom:

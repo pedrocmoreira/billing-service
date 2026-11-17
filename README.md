@@ -1,5 +1,9 @@
 # Billing Service — Orçamento e Pagamento (Mercado Pago)
 
+[![CI/CD](https://github.com/pedrocmoreira/billing-service/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/pedrocmoreira/billing-service/actions/workflows/ci-cd.yml)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=pedrocmoreira_billing-service&metric=alert_status)](https://sonarcloud.io/project/overview?id=pedrocmoreira_billing-service)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pedrocmoreira_billing-service&metric=coverage)](https://sonarcloud.io/project/overview?id=pedrocmoreira_billing-service)
+
 Microsserviço responsável por **gerar e enviar orçamentos**, registrar a **aprovação/recusa do cliente** e
 **registrar/verificar pagamentos** via **Mercado Pago (Checkout Pro)**, informando o OS Service por eventos.
 
