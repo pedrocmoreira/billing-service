@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Orçamento da Oficina</title>
+    <style>
+        body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f4f4f4; color: #333; margin: 0; }
+        .container { max-width: 600px; margin: 32px auto; background: #fff; border-radius: 8px; overflow: hidden; }
+        .header { background: #1a1a2e; padding: 24px 32px; color: #fff; }
+        .body { padding: 32px; }
+        .badge { display: inline-block; background: #f0f4ff; color: #3B5BDB; border-radius: 6px; padding: 6px 14px; font-weight: 600; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+        th { background: #f8f9fa; padding: 10px; text-align: left; font-size: 12px; color: #666; }
+        td { padding: 10px; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+        .total td { background: #f0f4ff; font-weight: 700; font-size: 15px; }
+        .obs { background: #fffbeb; border: 1px solid #f0c040; border-radius: 6px; padding: 12px; margin-bottom: 24px; font-size: 13px; }
+        .btn { display: inline-block; padding: 14px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; margin-right: 8px; }
+        .approve { background: #2F9E44; color: #fff; }
+        .reject { border: 2px solid #E03131; color: #E03131; }
+        .footer { background: #f8f9fa; padding: 16px 32px; font-size: 12px; color: #888; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header"><h2 style="margin:0">Garage System</h2><small>Orçamento para aprovação</small></div>
+    <div class="body">
+        <p>Olá, <strong th:text="${customerName}">Cliente</strong>!</p>
+        <p>Concluímos o diagnóstico do seu veículo <strong th:text="${vehicleDescription}">Veículo</strong>. Confira o orçamento:</p>
+        <div class="badge" th:text="'OS ' + ${serviceOrderNumber}">OS-2026-00001</div>
+
+        <div class="obs" th:if="${diagnosisNotes != null and diagnosisNotes != ''}">
+            <strong>Diagnóstico:</strong> <span th:text="${diagnosisNotes}"></span>
+        </div>
+
+        <table>
+            <thead><tr><th>Serviço</th><th style="text-align:right">Valor</th></tr></thead>
+            <tbody>
+            <tr th:each="s : ${services}">
+                <td th:text="${s.description}">Serviço</td>
+                <td style="text-align:right" th:text="${'R$ ' + #numbers.formatDecimal(s.subtotal, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table th:if="${not #lists.isEmpty(parts)}">
+            <thead><tr><th>Peça</th><th style="text-align:center">Qtd</th><th style="text-align:right">Subtotal</th></tr></thead>
+            <tbody>
+            <tr th:each="p : ${parts}">
+                <td th:text="${p.description}">Peça</td>
+                <td style="text-align:center" th:text="${p.quantity}">1</td>
+                <td style="text-align:right" th:text="${'R$ ' + #numbers.formatDecimal(p.subtotal, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <tr class="total">
+                <td>Total</td>
+                <td style="text-align:right" th:text="${'R$ ' + #numbers.formatDecimal(totalAmount, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+            </tr>
+        </table>
+
+        <p>
+            <a class="btn approve" th:href="${approveUrl}">Aprovar e pagar</a>
+            <a class="btn reject" th:href="${rejectUrl}">Recusar</a>
+        </p>
+        <p style="font-size:12px;color:#888">Após aprovar, você será direcionado ao pagamento via Mercado Pago.</p>
+    </div>
+    <div class="footer">Garage System - e-mail automático, não responda.</div>
+</div>
+</body>
+</html>

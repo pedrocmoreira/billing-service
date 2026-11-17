@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: billing-service-config
+  namespace: garage
+data:
+  SERVER_PORT: "8082"
+  RABBITMQ_HOST: rabbitmq
+  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://otel-collector:4318/v1/traces
+  LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
+  DB_HOST: billing-db
+  DB_PORT: "5432"
+  MAIL_HOST: mailhog
+  MAIL_PORT: "1025"
+  MAIL_FROM: noreply@garagesystem.com
+  # Provedor de pagamento: simulador (troque por https://api.mercadopago.com para o real)
+  MP_API_BASE_URL: http://payment-mock-service
+  MP_NOTIFICATION_URL: http://billing-service/webhooks/mercadopago
